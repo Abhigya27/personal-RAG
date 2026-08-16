@@ -7,33 +7,48 @@ from utils.embedding import get_embedding
 
 
 def load_faiss_index():
-    if os.path.exists("faiss_store/index.faiss"):
-        index = faiss.read_index("faiss_store/index.faiss")
+    index_path = "faiss_store/index.faiss"
+    mapping_path = "faiss_store/chunk_mapping.pkl"
 
-        with open("faiss_store/chunk_mapping.pkl", "rb") as f:
-            chunk_mapping = pickle.load(f)
+    valid = os.path.exists(index_path) and os.path.getsize(index_path) > 0
+    valid = valid and os.path.exists(mapping_path) and os.path.getsize(mapping_path) > 0
 
-    else:
-        with open("data/founder_story.txt", "r", encoding="utf-8") as f:
-            text = f.read()
+    if valid:
+        try:
+            index = faiss.read_index(index_path)
+            with open(mapping_path, "rb") as f:
+                chunk_mapping = pickle.load(f)
+            return index, chunk_mapping
+        except Exception as e:
+            print("corrupted index", e )
+    print("generating new FAISS index from info.txt")
+
+    with open("data/info.txt", "r", encoding="utf-8") as f:
+        text = f.read()
 
         chunks = chunk_text(text)
         chunk_mapping = []
+        all_embeddings = []
 
         index = faiss.IndexFlatL2(384)  
 
         for chunk in chunks:
             emb = get_embedding(chunk)
-            index.add(np.array([emb]).astype("float32"))
+            all_embeddings.append(emb)
             chunk_mapping.append(chunk)
 
+        all_embeddings = np.array(all_embeddings).astype("float32")
+        dimension = all_embeddings.shape[1]
+
+        index = faiss.IndexFlatL2(dimension)
+        index.add(all_embeddings)
+
         os.makedirs("faiss_store", exist_ok=True)
-
-        faiss.write_index(index, "faiss_store/index.faiss")
-
-        with open("faiss_store/chunk_mapping.pkl", "wb") as f:
+        faiss.write_index(index, index_path)
+        with open(mapping_path, "wb") as f:
             pickle.dump(chunk_mapping, f)
 
+    # print()
     return index, chunk_mapping
 
 
