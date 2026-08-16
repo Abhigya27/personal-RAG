@@ -6,7 +6,7 @@ load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-def generate_completion(prompt,model="llama-3.3-70b-versatile",temperature=0.3):
+def generate_chat(prompt,model="llama-3.3-70b-versatile",temperature=0.3):
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -15,7 +15,10 @@ def generate_completion(prompt,model="llama-3.3-70b-versatile",temperature=0.3):
                 "content": prompt
             }
         ],
-        temperature=temperature
+        temperature=temperature, stream=True
     )
 
-    return response.choices[0].message.content
+    for chunk in response:
+        content = chunk.choices[0].delta.content
+        if content:
+            yield content
