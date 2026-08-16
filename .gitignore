@@ -9,3 +9,6 @@ wheels/
 # Virtual environments
 .venv
 .env 
+data/info.txt
+faiss_store\chunk_mapping.pkl
+faiss_store\index.faiss
