@@ -15,10 +15,9 @@ if query:
     top_chunks = retrieve_chunks(query, index, chunk_mapping)
 
     prompt = build_prompt(top_chunks, query)
-    response = generate_chat(prompt)
 
     st.subheader("Answer")
-    st.write(response)
+    st.write_stream(generate_chat(prompt))
 
     with st.expander("Retrieved Chunks"):
         for chunk in top_chunks:
