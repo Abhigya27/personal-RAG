@@ -1,0 +1,14 @@
+Abhigya Narain's DOB is 23/04/2003
+he has completed huis schooling from loyola high school, patna and his 10th and 12th percentages were 83.3 and 82.2 percentages
+he completed his btech in mechanical engineering from vellore institute of technology in 2026
+his skills include:
+Fastapi for backend and streamlit for frontend 
+languages like python and sql
+worked with libraries like numpy, pandas, matplotlib, seaborn etc
+knowledge of sqldatabases like mysql and postgresql and has also worked with sqlalchemy (orm)
+knowledge of nosql vector databases like faiss, chromadb, datastax astra db
+he has solved around 200 dsa questions 
+knowledge of machine learning and has worked with scikit learn and made projects like house price prediction and score predictor
+good knowledge of ai and is currrently practising ai engineering; worked with langchain framework
+his other projects include resume parser with ats and a personal rag
+overall he has interest in working with ai/llms, always eager to learn new frameworks and build projects etc
