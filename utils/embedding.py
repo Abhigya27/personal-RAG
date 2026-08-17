@@ -1,6 +1,6 @@
-from langchain_huggingface import HuggingFaceEmbeddings
+from fastembed import TextEmbedding
 
-embedder = HuggingFaceEmbeddings(model_name="BAAI/bge-small-en-v1.5")
+embedder = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 def get_embedding(text):
-    return embedder.embed_query(text)
+    return list(embedder.embed([text]))[0]
