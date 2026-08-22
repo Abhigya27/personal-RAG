@@ -6,6 +6,13 @@ The project implements the core RAG workflow: converting personal information in
 
 > **Note:** This is currently a prototype and learning project. It is intended to serve as a foundation for a more capable personal AI system that will gradually incorporate features such as job-description matching, memory, improved retrieval, and agentic capabilities.
 
+## 🚀 Live Demo
+
+Try the chatbot here:
+
+[**Open Personal RAG Chatbot**](https://personal-rag-pza1.onrender.com/)
+
+
 ---
 
 ## Features
